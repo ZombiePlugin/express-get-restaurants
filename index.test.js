@@ -1,6 +1,7 @@
 const request = require("supertest");
 const app = require("./src/app");
 const { DataTypes } = require("sequelize");
+const syncSeedeed = require("./seed");
 
 describe("Restaurant api", () => {
   test("Verify the GET method doesn't error", async () => {
@@ -11,6 +12,7 @@ describe("Restaurant api", () => {
     const response = await request(app).get("/restaurants");
     expect((response) => {
       response.body[0].name = "AppleBees";
+      response.body[0].Menus = [];
       response.body[1].name = "LittleSheep";
       response.body[2].name = "Spice Grill";
       response.body.toHaveLength(3);
