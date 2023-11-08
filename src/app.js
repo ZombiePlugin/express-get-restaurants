@@ -27,11 +27,13 @@ app.put("/restaurants/:id", async (req, res) => {
   const updatedRestaurant = await Restaurant.update(req.body, {
     where: { id: req.params.id },
   });
+  res.json(updatedRestaurant);
 });
 
 app.delete("/restaurants/:id", async (req, res) => {
   const deletedRestaurant = await Restaurant.destroy({
     where: { id: req.params.id },
   });
+  res.json(deletedRestaurant);
 });
 module.exports = app;
