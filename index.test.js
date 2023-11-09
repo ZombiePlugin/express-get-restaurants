@@ -34,6 +34,40 @@ describe("Restaurant api", () => {
       response.body[3].name = "Pepe's";
     });
   });
+  test("Verify the POST method returns an errors array", async () => {
+    const response = await request(app).post("/restaurants/").send({
+      name: "",
+      location: "",
+      cuisine: "",
+    });
+    expect((response) => {
+      response.body = {
+        error: [
+          {
+            type: "field",
+            value: "",
+            msg: "Invalid value",
+            path: "name",
+            location: "body",
+          },
+          {
+            type: "field",
+            value: "",
+            msg: "Invalid value",
+            path: "location",
+            location: "body",
+          },
+          {
+            type: "field",
+            value: "",
+            msg: "Invalid value",
+            path: "cuisine",
+            location: "body",
+          },
+        ],
+      };
+    });
+  });
   test("Verify the PUT method updates the database", async () => {
     const response = await request(app).put("/restaurants/4").send({
       name: "Chicken City",
